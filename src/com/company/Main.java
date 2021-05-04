@@ -26,22 +26,28 @@ public class Main {
                 System.out.println("Yes! The secret word is cat. You have won!");
                 Scanner scanner1 = new Scanner(System.in);
                 System.out.println("Do you want to play again? (yes or no)");
-                String play = scanner1.next().toLowerCase(Locale.ROOT);
-                if(play.equals("yes")){
-                    winningCount = 0;
-                    count = 0;
-                    letter1 = "_";
-                    letter2 = "_";
-                    letter3 = "_";
-                    head = "";
-                    body = "";
-                    footer = "";
-                    continue;
-                }else if(play.equals("no")){
-                    System.out.println("Maybe next time! Have a Good Day.");
-                    break;
-                }else {
-                    System.out.println("Please makes sure your answer is 'yes' or 'no'");
+                String play;
+                try{
+                    play = scanner1.next().toLowerCase(Locale.ROOT);
+                    if(play.equals("yes")){
+                        winningCount = 0;
+                        count = 0;
+                        letter1 = "_";
+                        letter2 = "_";
+                        letter3 = "_";
+                        head = "";
+                        body = "";
+                        footer = "";
+                        continue;
+                    }else if(play.equals("no")){
+                        System.out.println("Maybe next time! Have a Good Day.");
+                        break;
+                    }else {
+//                        System.out.println("Please makes sure your answer is 'yes' or 'no'");
+                        throw new RightAnswer();
+                    }
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
                     continue;
                 }
             }
@@ -61,7 +67,7 @@ public class Main {
             System.out.println(letter1 + letter2  + letter3 );
             Scanner scanner = new Scanner(System.in);
             System.out.print("Choose a letter: ");
-            String input = scanner.next();
+            String input = scanner.next().toLowerCase(Locale.ROOT);
             if(input.length() != 1){
                 System.out.println("You have to enter only one letter, please try again");
                 continue;
@@ -79,7 +85,7 @@ public class Main {
                     letter3 = input;
                     winningCount++;
                     continue;
-                }else if(input == "q"){
+                }else if(input.equals("q")){
                     System.out.println("Have a good day!");
                     break;
                 }
