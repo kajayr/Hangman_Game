@@ -5,12 +5,17 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
-
+    public static void isNumber(Object e) throws RightAnswer {
+        if(e instanceof Integer){
+            throw new RightAnswer();
+        }
+    }
     public static void main(String[] args) {
 
         int count = 0;
         int winningCount = 0;
         ArrayList<String> computerWord = new ArrayList();
+
         computerWord.add("c");
         computerWord.add("a");
         computerWord.add("t");
@@ -28,7 +33,9 @@ public class Main {
                 System.out.println("Do you want to play again? (yes or no)");
                 String play;
                 try{
+
                     play = scanner1.next().toLowerCase(Locale.ROOT);
+                 //   isNumber((Object)play);
                     if(play.equals("yes")){
                         winningCount = 0;
                         count = 0;
@@ -43,10 +50,13 @@ public class Main {
                         System.out.println("Maybe next time! Have a Good Day.");
                         break;
                     }else {
-//                        System.out.println("Please makes sure your answer is 'yes' or 'no'");
-                        throw new RightAnswer();
+                            throw new AcceptableRespond();
                     }
-                }catch (Exception e){
+                }catch (AcceptableRespond e){
+                    System.out.println(e.getMessage());
+                    continue;
+                }
+                catch (Exception e){
                     System.out.println(e.getMessage());
                     continue;
                 }
@@ -67,30 +77,40 @@ public class Main {
             System.out.println(letter1 + letter2  + letter3 );
             Scanner scanner = new Scanner(System.in);
             System.out.print("Choose a letter: ");
-            String input = scanner.next().toLowerCase(Locale.ROOT);
-            if(input.length() != 1){
-                System.out.println("You have to enter only one letter, please try again");
-                continue;
-            }
-            if(computerWord.contains(input)){
-                if(computerWord.get(0).equals(input)){
-                    letter1 = input;
-                    winningCount++;
-                    continue;
-                }else if(computerWord.get(1).equals(input)){
-                    letter2 = input;
-                    winningCount++;
-                    continue;
-                }else if(computerWord.get(2).equals(input)){
-                    letter3 = input;
-                    winningCount++;
-                    continue;
-                }else if(input.equals("q")){
-                    System.out.println("Have a good day!");
-                    break;
-                }
+            String input;
+try{
+    input = scanner.next().toLowerCase(Locale.ROOT);
+//    Integer test = Integer.parseInt(input);
+    isNumber((Object)input);
+    if(input.length() != 1){
+        System.out.println("You have to enter only one letter, please try again");
+        continue;
+    }
+    if(computerWord.contains(input)){
+        if(computerWord.get(0).equals(input)){
+            letter1 = input;
+            winningCount++;
+            continue;
+        }else if(computerWord.get(1).equals(input)){
+            letter2 = input;
+            winningCount++;
+            continue;
+        }else if(computerWord.get(2).equals(input)){
+            letter3 = input;
+            winningCount++;
+            continue;
+        }else if(input.equals("q")){
+            System.out.println("Have a good day!");
+            break;
+        }
 
-            }
+    }
+}catch(RightAnswer e){
+    System.out.println(e.getMessage());
+}
+catch(Exception e){
+
+}
             count++;
             System.out.println("You missed a chance. Missed chances : " + count + ". Try again!");
             if(count == 1){
