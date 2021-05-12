@@ -1,8 +1,10 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void isNumber(Object e) throws RightAnswer {
@@ -28,7 +30,8 @@ public class Main {
         System.out.println("Welcome to the Hangman game!");
         while(count < 4){
             if(winningCount == 3){
-                System.out.println("Yes! The secret word is cat. You have won!");
+                String correctWord = Arrays.toString(computerWord.stream().map(letter -> letter + "").collect(Collectors.toList()).toArray());
+                System.out.println("Yes! The secret word is " + correctWord +". You have won!");
                 Scanner scanner1 = new Scanner(System.in);
                 System.out.println("Do you want to play again? (yes or no)");
                 String play;
@@ -75,6 +78,7 @@ public class Main {
             System.out.println("======");
             System.out.println("Missed letters: " + count);
             System.out.println(letter1 + letter2  + letter3 );
+            //have letters in list and then map them
             Scanner scanner = new Scanner(System.in);
             System.out.print("Choose a letter: ");
             String input;
