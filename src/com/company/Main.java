@@ -1,5 +1,8 @@
 package com.company;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
@@ -12,10 +15,14 @@ public class Main {
             throw new RightAnswer();
         }
     }
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws IOException {
+        Scanner n = new Scanner(System.in);
+        System.out.println("Welcome to the Hangman game. \n Please enter your name: ");
+        String name = n.next();
         int count = 0;
         int winningCount = 0;
+        int score = 5;
+        int result = 0;
         ArrayList<String> computerWord = new ArrayList();
 
         computerWord.add("c");
@@ -32,6 +39,7 @@ public class Main {
             if(winningCount == 3){
                 String correctWord = Arrays.toString(computerWord.stream().map(letter -> letter + "").collect(Collectors.toList()).toArray());
                 System.out.println("Yes! The secret word is " + correctWord +". You have won!");
+                System.out.println("Your final score is " + score + " out of 5");
                 Scanner scanner1 = new Scanner(System.in);
                 System.out.println("Do you want to play again? (yes or no)");
                 String play;
@@ -118,18 +126,28 @@ catch(Exception e){
             count++;
             System.out.println("You missed a chance. Missed chances : " + count + ". Try again!");
             if(count == 1){
+                score--;
                 head = "()";
             }
             if(count == 2){
                 body = "|";
+                score--;
             }
             if(count == 3){
                 footer = "|";
+                score--;
+
             }
             if(count == 4){
+                score--;
+                System.out.println("Your final score is " + score + " out of 5");
                 System.out.println("Game over!");
             }
         }
-
+        File file = new File("C:\\Users\\kajay\\IdeaProjects\\Hangman\\gameResult.txt");
+        file.createNewFile();
+        FileWriter fw = new FileWriter("C:\\Users\\kajay\\IdeaProjects\\Hangman\\gameResult.txt");
+        fw.write("Name: " + name + "\nYour Score is: " + score + " out of 5");
+        fw.close();
     }
 }
