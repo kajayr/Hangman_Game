@@ -1,4 +1,4 @@
-package com.company;
+package store;
 
 public class AcceptableRespond extends Exception{
     @Override

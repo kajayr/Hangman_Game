@@ -1,4 +1,4 @@
-package com.company;
+package store;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -15,16 +15,17 @@ public class Main {
             throw new RightAnswer();
         }
     }
+
     public static void main(String[] args) throws IOException {
+        CheckingAllCounts checkingAllCounts = new CheckingAllCounts();
         Scanner n = new Scanner(System.in);
         System.out.println("Welcome to the Hangman game. \n Please enter your name: ");
         String name = n.next();
-        int count = 0;
-        int winningCount = 0;
-        int score = 5;
-        int result = 0;
-        ArrayList<String> computerWord = new ArrayList();
+        int count = checkingAllCounts.getCount();
+        int winningCount = checkingAllCounts.getWinningCount();
+        int score = checkingAllCounts.getScore();
 
+        ArrayList<String> computerWord = new ArrayList();
         computerWord.add("c");
         computerWord.add("a");
         computerWord.add("t");

@@ -1,5 +1,4 @@
-package com.company;
-
+package store;
 public class RightAnswer extends Exception{
 
     @Override
